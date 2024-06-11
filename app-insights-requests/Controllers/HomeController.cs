@@ -1,31 +1,27 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using app_insights_requests.Models;
+using System.Diagnostics;
 
 namespace app_insights_requests.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
-
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public IActionResult Error() => Json(
+        new
+        {
+            traceId = Activity.Current?.Id,
+        });
+
+    [AllowAnonymous]
+    public void Exception()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        throw new InvalidOperationException("Testing exception");
+    }
+
+    [Authorize(Roles = "NonexistingRole")]
+    public void Auth()
+    {
+        throw new InvalidOperationException("Unreachable!");
     }
 }

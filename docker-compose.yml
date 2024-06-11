@@ -1,6 +1,0 @@
-﻿services:
-  app-insights-requests:
-    image: app-insights-requests
-    build:
-      context: .
-      dockerfile: app-insights-requests/Dockerfile

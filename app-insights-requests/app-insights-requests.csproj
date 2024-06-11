@@ -5,16 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>app_insights_requests</RootNamespace>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <ApplicationInsightsResourceId>/subscriptions/94f6f039-f38d-4a35-a49f-0aa32360309c/resourceGroups/localsofa/providers/microsoft.insights/components/localsofa-ai</ApplicationInsightsResourceId>
     <UserSecretsId>83c53768-2ed0-48c9-bc51-a3f7677ac5a3</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="..\.dockerignore">
-      <Link>.dockerignore</Link>
-    </Content>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
