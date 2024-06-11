@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationInsightsTelemetry(
     new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
@@ -9,6 +11,7 @@ builder.Services.AddApplicationInsightsTelemetry(
 
 var app = builder.Build();
 
+// both re-execute the same controller action:
 app.UseExceptionHandler("/Home/Error");
 app.UseStatusCodePagesWithReExecute("/Home/Error");
 
@@ -17,6 +20,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -12,16 +12,19 @@ public class HomeController : Controller
         {
             traceId = Activity.Current?.Id,
         });
+}
 
+public class TestController : Controller
+{
     [AllowAnonymous]
-    public void Exception()
+    public void ThrowException()
     {
-        throw new InvalidOperationException("Testing exception");
+        throw new Exception("Exception thrown from /Test/ThrowException action");
     }
 
     [Authorize(Roles = "NonexistingRole")]
-    public void Auth()
+    public void ReturnUnauthorized()
     {
-        throw new InvalidOperationException("Unreachable!");
+        throw new UnreachableException();
     }
 }
