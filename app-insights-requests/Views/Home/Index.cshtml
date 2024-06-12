@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+<div>
+    <p>UseExceptionHandler:</p>
+    <ul>
+        <li>@Html.ActionLink("GET /Test/ThrowException", controllerName: "Test", actionName: "ThrowException") - 500: Throw exception from controller action</li>
+        <li>
+            <a href="/CustomMiddlewareThrow">GET /CustomMiddlewareThrow</a> - 500: Custom middleware throws an exception
+        </li>
+    </ul>
+    <p>UseStatusCodePagesWithReExecute:</p>
+    <ul>
+        <li>@Html.ActionLink("GET /Test/AuthorizationPolicy", controllerName: "Test", actionName: "AuthorizationPolicy") - 401: Using [Authorize] attribute</li>
+        <li>@Html.ActionLink("GET /Test/Return401", controllerName: "Test", actionName: "Return401") - 401: Return StatusCode from controller action</li>
+        <li>@Html.ActionLink("GET /Test/Return500", controllerName: "Test", actionName: "Return500") - 500: Return StatusCode from controller action</li>
+        <li><a href="/NonExistingAddress">GET /NonExistingAddress</a> - 404: Route that doesn't exist</li>
+        <li><a href="/CustomMiddleware500">GET /CustomMiddleware500</a> - 500: Custom middleware returns empty status 500</li>
+        <li>@Html.ActionLink("GET /Test/OnlyPostSupported", controllerName: "Test", actionName: "OnlyPostSupported") - 405: HTTP Method not supported for an existing route</li>
+    </ul>
+    <p>Successful requests that won't be handled by /ErrorHandler/Error. These are included for comparing values of RequestTelemetry.Name:</p>
+    <ul>
+        <li><a href="/CustomMiddleware204">GET /CustomMiddleware204</a> 204 - : Custom middleware returns empty status response</li>
+    </ul>
+</div>
+</body>
+</html>
