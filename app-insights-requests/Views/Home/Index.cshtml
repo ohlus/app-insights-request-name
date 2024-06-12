@@ -28,6 +28,7 @@
     </ul>
     <p>Successful requests that won't be handled by /ErrorHandler/Error. These are included for comparing values of RequestTelemetry.Name:</p>
     <ul>
+        <li>@Html.ActionLink("GET /Test/Return200", controllerName: "Test", actionName: "Return200") - 200: Controller action returns 200 OK</li>
         <li><a href="/CustomMiddleware204">GET /CustomMiddleware204</a> 204 - : Custom middleware returns empty status response</li>
     </ul>
 </div>

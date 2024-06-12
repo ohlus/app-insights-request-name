@@ -7,6 +7,9 @@ namespace app_insights_requests.Controllers;
 public class TestController : Controller
 {
     [AllowAnonymous]
+    public IActionResult Return200() => Ok("OK");
+
+    [AllowAnonymous]
     public void ThrowException()
     {
         throw new Exception("Exception thrown from /Test/ThrowException action");
