@@ -1,5 +1,8 @@
 using app_insights_requests;
-using Microsoft.AspNetCore.Authorization;
+using app_insights_requests.Middleware;
+using app_insights_requests.Telemetry;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.ApplicationInsights.Extensibility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +11,12 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("TestPolicy", policy => policy.AddAuthenticationSchemes("TestScheme").RequireAuthenticatedUser());
 builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationInsightsTelemetry(
-    new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
+    new ApplicationInsightsServiceOptions
     {
         ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]
     });
+// doesn't work :/
+// builder.Services.AddSingleton<ITelemetryInitializer, RequestTelemetryInitializer>();
 
 var app = builder.Build();
 
@@ -24,6 +29,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+// this works
+app.UseAppInsightsRequestTelemetryMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
